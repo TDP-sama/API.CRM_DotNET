@@ -62,8 +62,9 @@ public class DocumentsController(DocumentService documents, TemplateStore templa
     [HttpPost("templates")]
     [Authorize(Policy = ManageTemplates)]
     [RequestSizeLimit(TemplateStore.MaxSize + 64 * 1024)]
-    public async Task<TemplateStore.TemplateInfo> UploadTemplate([FromForm] IFormFile file, [FromForm] string? name)
+    public async Task<TemplateStore.TemplateInfo> UploadTemplate([FromForm] TemplateUploadForm form)
     {
+        var (file, name) = (form.File, form.Name);
         if (file.Length == 0) throw new BusinessException("File rỗng.");
         if (file.Length > TemplateStore.MaxSize) throw new BusinessException("File mẫu tối đa 10 MB.");
         var fileName = string.IsNullOrWhiteSpace(name) ? Path.GetFileName(file.FileName) : name.Trim();
@@ -102,4 +103,17 @@ public class DocumentsController(DocumentService documents, TemplateStore templa
         User.HasClaim(Permissions.ClaimType, source == "opportunity" ? Permissions.OpportunitiesView : Permissions.OrdersView);
 
     private FileContentResult ToFile(RenderedDocument doc) => File(doc.Content, doc.ContentType, doc.FileName);
+
+    /// <summary>
+    /// Multipart form for template uploads. Kept as one class because Swashbuckle cannot describe
+    /// a loose [FromForm] IFormFile parameter (swagger.json would fail with a 500).
+    /// </summary>
+    public class TemplateUploadForm
+    {
+        /// <summary>The .docx or .rtf file.</summary>
+        public IFormFile File { get; set; } = null!;
+
+        /// <summary>Name to store it under (e.g. KH00002.docx); defaults to the uploaded file name.</summary>
+        public string? Name { get; set; }
+    }
 }

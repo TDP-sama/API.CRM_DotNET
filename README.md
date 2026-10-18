@@ -2,26 +2,7 @@
 
 Backend của hệ thống CRM: ASP.NET Core 8, EF Core + SQL Server, JWT, DevExpress Reporting. Giao diện web nằm ở repo **CRM Web**.
 
-## Chạy
-
-```sh
-cp .env.example .env            # tuỳ chọn
-docker compose up -d --build    # API + SQL Server
-```
-
-- Swagger: http://localhost:5000/swagger
-- SQL Server: `localhost,1433`, tài khoản `sa` / `Crm@Passw0rd!`, database `CrmDb`
-
-Khi phát triển: chạy `docker compose up -d sqlserver` rồi `dotnet run --project API.CRM_DotNET` (http://localhost:5045).
-
 Lần chạy đầu, API tự migrate database và nạp dữ liệu mẫu. Tài khoản mẫu: `admin/Admin@123`, `sales/Sales@123`, `kho/Kho@123`.
-
-Thêm migration:
-
-```sh
-dotnet tool restore
-dotnet ef migrations add <Ten> --project API.CRM_DotNET -o Data/Migrations
-```
 
 ## Cấu hình chính (`appsettings.json`)
 

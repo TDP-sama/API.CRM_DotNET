@@ -1,0 +1,23 @@
+# Build output
+bin/
+obj/
+[Pp]ublish/
+*.nupkg
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.rsuser
+
+# Local secrets and overrides (commit .env.example instead)
+.env
+appsettings.*.local.json
+
+# Logs, test results, OS files
+*.log
+TestResults/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,36 @@
+# API + SQL Server only. The web frontend lives in its own repository.
+name: crm-api
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${SA_PASSWORD:-Crm@Passw0rd!}
+      MSSQL_PID: Developer
+    ports:
+      - "${SQL_PORT:-1433}:1433"
+    volumes:
+      - sqldata:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  api:
+    build: .
+    environment:
+      ConnectionStrings__Default: "Server=sqlserver,1433;Database=CrmDb;User Id=sa;Password=${SA_PASSWORD:-Crm@Passw0rd!};TrustServerCertificate=True"
+      Jwt__Key: ${JWT_KEY:-change-me-to-a-long-random-string-at-least-32-chars}
+      Seed__DemoData: ${SEED_DEMO_DATA:-true}
+      EnableSwagger: "true"
+    ports:
+      - "${API_PORT:-5000}:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+
+volumes:
+  sqldata:

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.CRM_DotNET", "API.CRM_DotNET\API.CRM_DotNET.csproj", "{87081830-2E4F-4D83-88EB-91E6247175B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87081830-2E4F-4D83-88EB-91E6247175B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87081830-2E4F-4D83-88EB-91E6247175B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87081830-2E4F-4D83-88EB-91E6247175B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87081830-2E4F-4D83-88EB-91E6247175B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30AE32D7-9F36-4D94-B7EB-1F41B3AB4EE7}
+	EndGlobalSection
+EndGlobal

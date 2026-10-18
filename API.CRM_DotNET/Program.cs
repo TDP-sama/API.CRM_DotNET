@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using API.CRM_DotNET.Auth;
 using API.CRM_DotNET.Data;
+using API.CRM_DotNET.Documents;
 using API.CRM_DotNET.Domain;
 using API.CRM_DotNET.Infrastructure;
 using API.CRM_DotNET.Services;
@@ -43,6 +44,11 @@ builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProv
 builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<InventoryService>();
+
+builder.Services.Configure<CompanyOptions>(builder.Configuration.GetSection("Company"));
+builder.Services.Configure<DocumentOptions>(builder.Configuration.GetSection("Documents"));
+builder.Services.AddScoped<TemplateStore>();
+builder.Services.AddScoped<DocumentService>();
 
 builder.Services.AddControllers(o => o.Filters.Add<ApiExceptionFilter>())
     .AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

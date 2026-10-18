@@ -4,7 +4,21 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- DevExpress Reporting version: must exist in one of your NuGet sources (DevExpress feed,
+         the local DevExpress install, or ../dxpackages for Docker builds). -->
+    <DevExpressVersion>25.1.8-pre-25338</DevExpressVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Reporting.Core" Version="$(DevExpressVersion)" />
+    <!-- Rendering engine for Linux/Docker (Windows uses GDI+). -->
+    <PackageReference Include="DevExpress.Drawing.Skia" Version="$(DevExpressVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Word/RTF contract templates (terms section of ContractReport). -->
+    <None Update="DevexReport\Template\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DevExtreme.AspNet.Data" Version="5.1.0" />

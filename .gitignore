@@ -12,6 +12,10 @@ obj/
 *.suo
 *.rsuser
 
+# Licensed DevExpress packages collected for Docker builds (only dxpackages/README.md is committed)
+dxpackages/*
+!dxpackages/README.md
+
 # Local secrets and overrides (commit .env.example instead)
 .env
 appsettings.*.local.json

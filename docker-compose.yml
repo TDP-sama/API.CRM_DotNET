@@ -28,9 +28,13 @@ services:
       EnableSwagger: "true"
     ports:
       - "${API_PORT:-5000}:8080"
+    volumes:
+      # Contract templates (DevexReport/Template). A new named volume starts with the default template from the image.
+      - doctemplates:/app/DevexReport/Template
     depends_on:
       sqlserver:
         condition: service_healthy
 
 volumes:
+  doctemplates:
   sqldata:
